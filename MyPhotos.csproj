@@ -53,9 +53,9 @@
     <Compile Include="Attribute.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Controller\AttributeController.cs" />
-    <Compile Include="Controller\FileController.cs" />
-    <Compile Include="Controller\TagController.cs" />
+    <Compile Include="API\AttributeController.cs" />
+    <Compile Include="API\FileController.cs" />
+    <Compile Include="API\TagController.cs" />
     <Compile Include="DataFile.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

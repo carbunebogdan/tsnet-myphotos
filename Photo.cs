@@ -11,7 +11,9 @@ namespace MyPhotos
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+
+    [DataContract]
     public partial class Photo : DataFile
     {
     }

@@ -5,7 +5,11 @@ VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPhotos", "MyPhotos.csproj", "{A4F89003-AED8-48F5-9E9A-42D9F6349602}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPhotosApp", "..\MyPhotosApp\MyPhotosApp.csproj", "{09B1F555-1DC2-4A61-BFE7-56BC0CD0534A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPhotosApp", "MyPhotosApp\MyPhotosApp.csproj", "{09B1F555-1DC2-4A61-BFE7-56BC0CD0534A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectWCF", "ObjectWCF\ObjectWCF.csproj", "{C11DCA1D-8B99-4222-A49E-B30F806CF42A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Host", "Host\Host.csproj", "{E94B820E-F175-49B8-922E-8E278F8CBE94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{09B1F555-1DC2-4A61-BFE7-56BC0CD0534A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09B1F555-1DC2-4A61-BFE7-56BC0CD0534A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09B1F555-1DC2-4A61-BFE7-56BC0CD0534A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C11DCA1D-8B99-4222-A49E-B30F806CF42A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C11DCA1D-8B99-4222-A49E-B30F806CF42A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C11DCA1D-8B99-4222-A49E-B30F806CF42A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C11DCA1D-8B99-4222-A49E-B30F806CF42A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E94B820E-F175-49B8-922E-8E278F8CBE94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E94B820E-F175-49B8-922E-8E278F8CBE94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E94B820E-F175-49B8-922E-8E278F8CBE94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E94B820E-F175-49B8-922E-8E278F8CBE94}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

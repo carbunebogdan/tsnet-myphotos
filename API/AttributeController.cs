@@ -6,27 +6,23 @@ using System.Threading.Tasks;
 
 namespace MyPhotos.Controller
 {
-    class TagController
+    class AttributeController
     {
-        public static void addTag(int dataFileId, string name)
+        public static void addAttribute(Attribute attribute)
         {
             using (ModelContainer context = new ModelContainer())
             {
-                Tag tag = new Tag()
-                {
-                    Name = name,
-                };
-                context.Tags.Add(tag);
+                context.Attributes.Add(attribute);
                 context.SaveChanges();
             }
         }
-        public static void deleteTag(int id)
+        public static void deleteAttribute(int id)
         {
             using (ModelContainer context = new ModelContainer())
             {
-                var tagToDelete = new Tag { Id = id };
-                context.Tags.Attach(tagToDelete);
-                context.Tags.Remove(tagToDelete);
+                var attributeToDelete = new Attribute { Id = id };
+                context.Attributes.Attach(attributeToDelete);
+                context.Attributes.Remove(attributeToDelete);
                 context.SaveChanges();
             }
         }
@@ -34,7 +30,7 @@ namespace MyPhotos.Controller
         {
             using (ModelContainer context = new ModelContainer())
             {
-                var result = context.Tags.SingleOrDefault(file => file.Id == id);
+                var result = context.Attributes.SingleOrDefault(attribute => attribute.Id == id);
                 if (result != null)
                 {
                     result.Name = "updatedName";
@@ -42,19 +38,19 @@ namespace MyPhotos.Controller
                 }
             }
         }
-        public static Tag getTag(int id)
+        public static Attribute getAttribute(int id)
         {
             using (ModelContainer context = new ModelContainer())
             {
-                return context.Tags.Find(id);
+                return context.Attributes.Find(id);
             }
         }
-        public static List<Tag> getTags()
+        public static List<Attribute> getAttributes()
         {
             using (ModelContainer context = new ModelContainer())
             {
 
-                return context.Tags.ToList();
+                return context.Attributes.ToList();
             }
         }
     }

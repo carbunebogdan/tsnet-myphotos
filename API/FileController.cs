@@ -18,40 +18,38 @@ namespace MyPhotos.Controller
     public class FileController
     {
 
-        public static void addFile(string name, string path, DateTime creationDate, string location =null)
+        public static bool addFile(DataFile file)
         {
             using (ModelContainer context = new ModelContainer())
             {
-                DataFile file = new DataFile()
-                {
-                    Name = name,
-                    Path = path,
-                    CreationDate = creationDate,
-                };
                 context.DataFiles.Add(file);
                 context.SaveChanges();
+                return true;
             }
         }
-        public static void deleteFile(int id)
+        public static int deleteFile(int id)
         {
             using (ModelContainer context = new ModelContainer())
             {
-                var fileToDelete = new DataFile { Id = id };
-                context.DataFiles.Attach(fileToDelete);
-                context.DataFiles.Remove(fileToDelete);
-                context.SaveChanges();
+                return context.Database.ExecuteSqlCommand("Delete From DataFile where Id = @p0", id);
             }
         }
-        public static void updateFile(int id)
+        public static DataFile updateFile(DataFile newFile)
         {
             using (ModelContainer context = new ModelContainer())
             {
-                var result = context.DataFiles.SingleOrDefault(file => file.Id == id);
-                if (result != null)
+                DataFile oldFile = context.DataFiles.Find(newFile.Id);
+                if (oldFile == null)
                 {
-                   result.Name = "updatedName";
-                    context.SaveChanges();
+                    return null;
                 }
+
+                oldFile.Path = newFile.Path;
+                oldFile.Deleted = newFile.Deleted;
+                oldFile.Location = newFile.Location;
+                oldFile.Name = newFile.Name;
+                context.SaveChanges();
+                return oldFile;
             }
         }
         public static DataFile getFile(int id)

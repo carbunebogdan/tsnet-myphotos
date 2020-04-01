@@ -18,8 +18,12 @@ namespace MyPhotos
         public ModelContainer()
             : base("name=ModelContainer")
         {
+            // Inhibare: lazy loading si creare proxy dinamic.
+            Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
+
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

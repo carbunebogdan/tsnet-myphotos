@@ -114,7 +114,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyPhotos\MyPhotos.csproj">
+    <ProjectReference Include="..\MyPhotos.csproj">
       <Project>{A4F89003-AED8-48F5-9E9A-42D9F6349602}</Project>
       <Name>MyPhotos</Name>
     </ProjectReference>

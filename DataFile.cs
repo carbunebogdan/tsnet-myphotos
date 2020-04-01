@@ -11,7 +11,9 @@ namespace MyPhotos
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+
+    [DataContract(IsReference = true)]
     public partial class DataFile
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,16 +23,30 @@ namespace MyPhotos
             this.Tags = new HashSet<Tag>();
             this.Attributes = new HashSet<Attribute>();
         }
-    
+
+        [DataMember]
         public int Id { get; set; }
+
+        [DataMember]
         public string Path { get; set; }
+
+        [DataMember]
         public Nullable<bool> Deleted { get; set; }
+
+        [DataMember]
         public string Location { get; set; }
+
+        [DataMember]
         public System.DateTime CreationDate { get; set; }
+        
+        [DataMember]
         public string Name { get; set; }
-    
+
+        [DataMember]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tag> Tags { get; set; }
+
+        [DataMember]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Attribute> Attributes { get; set; }
     }
