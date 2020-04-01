@@ -1,0 +1,294 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="DataFiles" EntityType="Model.Store.DataFiles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Tags" EntityType="Model.Store.Tags" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Attributes" EntityType="Model.Store.Attributes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DataFiles_Photo" EntityType="Model.Store.DataFiles_Photo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DataFiles_Video" EntityType="Model.Store.DataFiles_Video" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DataFileTag" EntityType="Model.Store.DataFileTag" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_DataFileTag_DataFile" Association="Model.Store.FK_DataFileTag_DataFile">
+      <End Role="DataFile" EntitySet="DataFiles" />
+      <End Role="DataFileTag" EntitySet="DataFileTag" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DataFileTag_Tag" Association="Model.Store.FK_DataFileTag_Tag">
+      <End Role="Tag" EntitySet="Tags" />
+      <End Role="DataFileTag" EntitySet="DataFileTag" />
+    </AssociationSet>
+    <AssociationSet Name="DataFileAttribute" Association="Model.Store.DataFileAttribute">
+      <End Role="DataFile" EntitySet="DataFiles" />
+      <End Role="Attribute" EntitySet="Attributes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Photo_inherits_DataFile" Association="Model.Store.FK_Photo_inherits_DataFile">
+      <End Role="DataFile" EntitySet="DataFiles" />
+      <End Role="Photo" EntitySet="DataFiles_Photo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Video_inherits_DataFile" Association="Model.Store.FK_Video_inherits_DataFile">
+      <End Role="DataFile" EntitySet="DataFiles" />
+      <End Role="Video" EntitySet="DataFiles_Video" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="DataFiles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Path" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Deleted" Type="bit" Nullable="true" DefaultValue="false" />
+    <Property Name="Location" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tags">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Attributes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DataFileId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DataFiles_Photo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DataFiles_Video">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Duration" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DataFileTag">
+    <Key>
+      <PropertyRef Name="DataFiles_Id" />
+      <PropertyRef Name="Tags_Id" />
+    </Key>
+    <Property Name="DataFiles_Id" Type="int" Nullable="false" />
+    <Property Name="Tags_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="DataFileAttribute">
+    <End Role="DataFile" Type="Model.Store.DataFiles" Multiplicity="1" />
+    <End Role="Attribute" Type="Model.Store.Attributes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DataFile">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Attribute">
+        <PropertyRef Name="DataFileId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DataFileTag_DataFile">
+    <End Role="DataFile" Type="Model.Store.DataFiles" Multiplicity="1" />
+    <End Role="DataFileTag" Type="Model.Store.DataFileTag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DataFile">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DataFileTag">
+        <PropertyRef Name="DataFiles_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DataFileTag_Tag">
+    <End Role="DataFileTag" Type="Model.Store.DataFileTag" Multiplicity="*" />
+    <End Role="Tag" Type="Model.Store.Tags" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Tag">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DataFileTag">
+        <PropertyRef Name="Tags_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Photo_inherits_DataFile">
+    <End Role="DataFile" Type="Model.Store.DataFiles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Photo" Type="Model.Store.DataFiles_Photo" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="DataFile">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Photo">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Video_inherits_DataFile">
+    <End Role="DataFile" Type="Model.Store.DataFiles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Video" Type="Model.Store.DataFiles_Video" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="DataFile">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Video">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DataFiles" EntityType="Model.DataFile" />
+          <EntitySet Name="Tags" EntityType="Model.Tag" />
+          <AssociationSet Name="DataFileTag" Association="Model.DataFileTag">
+            <End Role="DataFile" EntitySet="DataFiles" />
+            <End Role="Tag" EntitySet="Tags" />
+          </AssociationSet>
+          <EntitySet Name="Attributes" EntityType="Model.Attribute" />
+          <AssociationSet Name="DataFileAttribute" Association="Model.DataFileAttribute">
+            <End Role="DataFile" EntitySet="DataFiles" />
+            <End Role="Attribute" EntitySet="Attributes" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="DataFile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Path" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="true" DefaultValue="False" />
+          <Property Name="Location" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Tags" Relationship="Model.DataFileTag" FromRole="DataFile" ToRole="Tag" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Attributes" Relationship="Model.DataFileAttribute" FromRole="DataFile" ToRole="Attribute" />
+        </EntityType>
+        <EntityType Name="Photo" BaseType="Model.DataFile" />
+        <EntityType Name="Video" BaseType="Model.DataFile" >
+          <Property Name="Duration" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="DataFiles" Relationship="Model.DataFileTag" FromRole="Tag" ToRole="DataFile" />
+        </EntityType>
+        <Association Name="DataFileTag">
+          <End Type="Model.DataFile" Role="DataFile" Multiplicity="*" />
+          <End Type="Model.Tag" Role="Tag" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Attribute">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="DataFile" Relationship="Model.DataFileAttribute" FromRole="Attribute" ToRole="DataFile" />
+          <Property Name="DataFileId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="DataFileAttribute">
+          <End Type="Model.DataFile" Role="DataFile" Multiplicity="1" />
+          <End Type="Model.Attribute" Role="Attribute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataFile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Attribute">
+              <PropertyRef Name="DataFileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="ModelContainer">
+    <EntitySetMapping Name="DataFiles">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.DataFile)">
+        <MappingFragment StoreEntitySet="DataFiles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Path" ColumnName="Path" />
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Photo)">
+        <MappingFragment StoreEntitySet="DataFiles_Photo">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Video)">
+        <MappingFragment StoreEntitySet="DataFiles_Video">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tags">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Tag)">
+        <MappingFragment StoreEntitySet="Tags">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Attributes">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Attribute)">
+        <MappingFragment StoreEntitySet="Attributes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="DataFileId" ColumnName="DataFileId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="DataFileTag" TypeName="Model.DataFileTag" StoreEntitySet="DataFileTag">
+      <EndProperty Name="DataFile">
+        <ScalarProperty Name="Id" ColumnName="DataFiles_Id" />
+      </EndProperty>
+      <EndProperty Name="Tag">
+        <ScalarProperty Name="Id" ColumnName="Tags_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
