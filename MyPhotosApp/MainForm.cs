@@ -1,4 +1,4 @@
-﻿using MyPhotos.Controller;
+﻿using MyPhotos;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +14,9 @@ namespace MyPhotosApp
     public partial class MainForm : Form
     {
         ListViewItem selectedItem;
+
+        MyPhotosFacadeClient myPhotosClient = new MyPhotosFacadeClient();
+        List<DataFile> files;
         public MainForm()
         {
             InitializeComponent();
@@ -27,7 +30,7 @@ namespace MyPhotosApp
         private void loadFiles()
         {
             listView1.Items.Clear();
-            var files = FileController.getFiles();
+            files = myPhotosClient.GetDataFiles().ToList();
             files.ForEach(file =>
             {
                 var tempItem = new ListViewItem();
@@ -57,7 +60,12 @@ namespace MyPhotosApp
             string name = Name.Text;
             string path = Path.Text;
 
-            FileController.addFile(name, path, DateTime.Now);
+            myPhotosClient.AddDataFile(new DataFile()
+            {
+                Name = name,
+                Path = path,
+                CreationDate = DateTime.Now
+            });
             loadFiles();
         }
 
@@ -80,7 +88,7 @@ namespace MyPhotosApp
         {
             if (selectedItem == null)
                 return;
-            var addTagForm = new addTag();
+            var addTagForm = new addTag(files.Find(file => file.Id == (int)selectedItem.Tag));
             addTagForm.Show();
         }
 

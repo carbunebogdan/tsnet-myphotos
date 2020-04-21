@@ -35,6 +35,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -71,6 +73,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="proxy.cs" />
     <EmbeddedResource Include="AddTagForm.resx">
       <DependentUpon>AddTagForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -114,9 +117,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyPhotos.csproj">
-      <Project>{A4F89003-AED8-48F5-9E9A-42D9F6349602}</Project>
-      <Name>MyPhotos</Name>
+    <ProjectReference Include="..\ObjectWCF\ObjectWCF.csproj">
+      <Project>{c11dca1d-8b99-4222-a49e-b30f806cf42a}</Project>
+      <Name>ObjectWCF</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

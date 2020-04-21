@@ -5,10 +5,10 @@ using MyPhotos;
 namespace ObjectWCF
 {
     [ServiceContract]
-    interface InterfaceTag
+    public interface InterfaceTag
     {
         [OperationContract]
-        bool AddTag(Tag tag);
+        bool AddTag(Tag tag, DataFile file);
 
         [OperationContract]
         Tag UpdateTag(Tag tag);

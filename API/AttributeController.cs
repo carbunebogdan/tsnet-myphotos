@@ -6,36 +6,38 @@ using System.Threading.Tasks;
 
 namespace MyPhotos.Controller
 {
-    class AttributeController
+    public class AttributeController
     {
-        public static void addAttribute(Attribute attribute)
+        public static bool addAttribute(Attribute attribute)
         {
             using (ModelContainer context = new ModelContainer())
             {
                 context.Attributes.Add(attribute);
                 context.SaveChanges();
+                return true;
             }
         }
-        public static void deleteAttribute(int id)
+        public static int deleteAttribute(int id)
         {
             using (ModelContainer context = new ModelContainer())
             {
-                var attributeToDelete = new Attribute { Id = id };
-                context.Attributes.Attach(attributeToDelete);
-                context.Attributes.Remove(attributeToDelete);
-                context.SaveChanges();
+                return context.Database.ExecuteSqlCommand("Delete From Attribute where Id = @p0", id);
             }
         }
-        public static void updateTag(int id)
+        public static Attribute updateAttribute(Attribute newAttr)
         {
             using (ModelContainer context = new ModelContainer())
             {
-                var result = context.Attributes.SingleOrDefault(attribute => attribute.Id == id);
-                if (result != null)
+                Attribute oldAttr = context.Attributes.Find(newAttr.Id);
+                if (oldAttr == null)
                 {
-                    result.Name = "updatedName";
-                    context.SaveChanges();
+                    return null;
                 }
+
+                oldAttr.Name = newAttr.Name;
+                oldAttr.Value = newAttr.Value;
+                context.SaveChanges();
+                return oldAttr;
             }
         }
         public static Attribute getAttribute(int id)

@@ -5,7 +5,7 @@ using MyPhotos;
 namespace ObjectWCF
 {
     [ServiceContract]
-    interface InterfaceDataFile
+    public interface InterfaceDataFile
     {
         [OperationContract]
         bool AddDataFile(DataFile file);

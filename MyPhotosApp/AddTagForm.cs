@@ -7,13 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MyPhotos;
 
 namespace MyPhotosApp
 {
     public partial class addTag : Form
     {
-        public addTag()
+        DataFile file;
+
+        MyPhotosFacadeClient myPhotosClient = new MyPhotosFacadeClient();
+        public addTag(DataFile file)
         {
+            this.file = file;
             InitializeComponent();
         }
 
@@ -24,7 +29,11 @@ namespace MyPhotosApp
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            string name = TagName.Text;
+            myPhotosClient.AddTag(new Tag()
+            {
+                Name = name,
+            }, file);
         }
     }
 }

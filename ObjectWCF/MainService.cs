@@ -2,13 +2,10 @@
 using MyPhotos.Controller;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ObjectWCF
 {
-    public class MainService : InterfaceDataFile, InterfaceTag, InterfaceAttribute
+    public class MainService : IMyPhotosFacade
     {
         //DATAFILE START
         public bool AddDataFile(DataFile file)
@@ -41,54 +38,54 @@ namespace ObjectWCF
         //ATTRIBUTE START
         public bool AddAttribute(MyPhotos.Attribute attribute)
         {
-            throw new NotImplementedException();
+            return AttributeController.addAttribute(attribute);
         }
 
         public int DeleteAttribute(int id)
         {
-            throw new NotImplementedException();
+            return AttributeController.deleteAttribute(id);
         }
 
         public MyPhotos.Attribute GetAttributeById(int id)
         {
-            throw new NotImplementedException();
+            return AttributeController.getAttribute(id);
         }
 
         public List<MyPhotos.Attribute> GetAttributes()
         {
-            throw new NotImplementedException();
+            return AttributeController.getAttributes();
         }
 
-        public DataFile UpdateAttribute(MyPhotos.Attribute attribute)
+        public MyPhotos.Attribute UpdateAttribute(MyPhotos.Attribute attribute)
         {
-            throw new NotImplementedException();
+            return AttributeController.updateAttribute(attribute);
         }
         //ATTRIBUTE END
 
         //TAG START
-        public bool AddTag(Tag tag)
+        public bool AddTag(Tag tag, DataFile file)
         {
-            throw new NotImplementedException();
+            return TagController.addTag(tag, file);
         }
 
         public Tag GetTagById(int id)
         {
-            throw new NotImplementedException();
+            return TagController.getTag(id);
         }
 
         public List<Tag> GetTags()
         {
-            throw new NotImplementedException();
+            return TagController.getTags();
         }
 
         public Tag UpdateTag(Tag tag)
         {
-            throw new NotImplementedException();
+            return TagController.updateTag(tag);
         }
 
         public int DeleteTag(int id)
         {
-            throw new NotImplementedException();
+            return TagController.deleteTag(id);
         }
         //TAG END
     }

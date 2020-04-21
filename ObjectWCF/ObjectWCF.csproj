@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,6 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\Attribute.cs" />
+    <Compile Include="DTO\DataFile.cs" />
+    <Compile Include="DTO\Tag.cs" />
+    <Compile Include="IMyPhotosFacade.cs" />
     <Compile Include="MainService.cs" />
     <Compile Include="InterfaceAttribute.cs" />
     <Compile Include="InterfaceTag.cs" />

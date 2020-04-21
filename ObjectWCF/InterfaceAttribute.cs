@@ -5,13 +5,13 @@ using MyPhotos;
 namespace ObjectWCF
 {
     [ServiceContract]
-    interface InterfaceAttribute
+    public interface InterfaceAttribute
     {
         [OperationContract]
         bool AddAttribute(Attribute attribute);
 
         [OperationContract]
-        DataFile UpdateAttribute(Attribute attribute);
+        Attribute UpdateAttribute(Attribute attribute);
 
         [OperationContract]
         int DeleteAttribute(int id);
