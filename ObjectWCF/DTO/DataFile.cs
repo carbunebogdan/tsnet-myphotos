@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ObjectWCF.DTO
-{
+{/*
 
     [DataContract]
     public sealed class DataFile
@@ -35,6 +35,7 @@ namespace ObjectWCF.DTO
         [DataMember]
         public ICollection<FileAttribute> Attributes { get; set; }
     }
+    */
 
     [DataContract]
     public sealed class FileAttribute

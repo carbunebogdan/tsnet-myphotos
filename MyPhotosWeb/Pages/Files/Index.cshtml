@@ -1,0 +1,128 @@
+﻿@page
+@model MyPhotosWeb.Pages.Files.IndexModel
+
+@{
+    ViewData["Title"] = "Photos";
+}
+
+<h1>Photos</h1>
+
+<form>
+    <p>
+        Tags:
+        <select asp-for="FileTags" asp-items="Model.Tags">
+            <option value="">All</option>
+        </select>
+        Attributes:
+        <select asp-for="FileAttributes" asp-items="Model.Attributes">
+            <option value="">All</option>
+        </select>
+        <br />
+        <hr />
+        Keyword:
+        <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Filter" />
+        </br>
+        <br />
+        Items selected: @Model.Files.Count
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Files[0].Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Files[0].Name)
+            </th>
+
+            <th>
+                Photo
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Files[0].Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Files[0].Path)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Files[0].Tags)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Files[0].Attributes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Files[0].CreationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Files[0].Deleted)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Files)
+        {
+        <tr style="font-size:small">
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @{
+                    byte[] imageByteData;
+                    string imageBase64Data;
+                    string imageDataURL = "";
+                    try
+                    {
+                        imageByteData = System.IO.File.ReadAllBytes(item.Path);
+                        imageBase64Data = Convert.ToBase64String(imageByteData);
+                        imageDataURL = string.Format("data:image/png;base64,{0}", imageBase64Data);
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+
+                }
+                <img src="@Url.Content(imageDataURL)" width="250px" alt="Image unavailable" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Path)
+            </td>
+            <td>
+                @{ 
+                    foreach(string tagName in item.Tags.Select(tag => tag.Name).ToList())
+                    {
+                        <p>@tagName</p>
+                    }
+                }
+            </td>
+            <td>
+                @{
+                    foreach (Models.AttributeDTO attr in item.Attributes.ToList())
+                    {
+                                <p>@attr.Name : @attr.Value </p>
+                    }
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreationDate)
+            </td>
+            <td>
+                @if ((bool)item.Deleted)
+                {<text>Yes</text>}
+                else
+                {<text>No</text>}
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

@@ -64,7 +64,7 @@ namespace MyPhotos.Controller
             using (ModelContainer context = new ModelContainer())
             {
           
-                return context.DataFiles.ToList();
+                return context.DataFiles.Include("Tags").Include("Attributes").ToList();
             }
         }
     }
